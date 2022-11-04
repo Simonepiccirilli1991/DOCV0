@@ -1,26 +1,13 @@
 package com.docv0.document.fragment;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Collectors;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
+import org.springframework.stereotype.Service;
 
-import com.docv0.controller.model.DocumentRequest;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -31,41 +18,16 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 @Component
-public class DocumentFragment {
+public class GeneratoreDocumentiFirma {
 
 	
-	// genera documento
-	public Document generaDocumenti(String nomeFile) throws Exception {
+	// servizio per generare pdf di firma
+	public Document generaPdf(String nomePdf,String nome, String cognome, String cf, String firma) throws FileNotFoundException, DocumentException {
 
-		
-		return generaPdf(nomeFile);   
-	}
-	
-	// legge pdf e lo ritorna
-	public byte[] leggiDocumento() throws IOException {
-		Path pdfPath = Paths.get("src/main/resources/test/provaPoste.pdf");
-		//ClassPathResource res = new ClassPathResource("provaPoste.pdf");  
-		//Path pdfPath = Paths.get(res.getPath());
-		byte[] contents = Files.readAllBytes(pdfPath);
-		
-		return contents;
-	}
-	
-	public InputStream leggiDocument() throws IOException {
-		Path pdfPath = Paths.get("src/main/resources/test/provaPoste.pdf");
-		byte[] contents = Files.readAllBytes(pdfPath);
-		InputStream resp =  new ByteArrayInputStream(contents);
-		
-		return resp;
-	}
-	
-	// metodo che genera
-	private Document generaPdf(String nomePdf) throws FileNotFoundException, DocumentException {
-		
 		Document document = new Document();
 		// prendo in input come si chiama sto file
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		PdfWriter.getInstance(document, new FileOutputStream("C:/tmp/"+nomePdf+".pdf"));
+		PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/generatedoc/"+nomePdf+".pdf"));
 		//PdfWriter.getInstance(document, new FileOutputStream("C:/tmp/"+nomePdf+".pdf"));
 		document.open();
 		document.add(new Paragraph("Documenti utente :"));
@@ -82,11 +44,11 @@ public class DocumentFragment {
 		table.addCell(cell);                                    
 		ArrayList<String[]> row=new ArrayList<String[]>();
 		String[] data=new String[2];
-		data[0]="1";
-		data[1]="2";
+		data[0]=nome;
+		data[1]=cognome;
 		String[] data1=new String[2];
-		data1[0]="3";
-		data1[1]="4";
+		data1[0]=cf;
+		data1[1]=firma;
 		row.add(data);
 		row.add(data1);
 
@@ -102,6 +64,4 @@ public class DocumentFragment {
 
 		return document;   
 	}
-	
-	
 }

@@ -11,11 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.docv0.controller.model.DocumentRequest;
 import com.docv0.service.DocumentService;
+import com.docv0.service.ReadJsonService;
 import com.itextpdf.text.Document;
 
 @RestController
@@ -24,6 +27,8 @@ public class DocumentController {
 
 	@Autowired
 	private DocumentService docService;
+	@Autowired
+	ReadJsonService readJsonService;
 	
 	@RequestMapping("getPdf")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -52,12 +57,17 @@ public class DocumentController {
 	
 	@PostMapping("post/document")
 	@ResponseStatus(code = HttpStatus.OK)
-	public ResponseEntity<Document> generaDocumento() throws Exception{
+	public ResponseEntity<Document> generaDocumento(@RequestBody DocumentRequest request) throws Exception{
 		
 		Document docDto = docService.generaPdf("prova");
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_PDF);
 		ResponseEntity<Document> oResponse = new ResponseEntity<>(docDto, headers, HttpStatus.OK);
 		return oResponse;
+	}
+	
+	@RequestMapping("json")
+	public String json() throws Exception {
+		return readJsonService.json();
 	}
 }
