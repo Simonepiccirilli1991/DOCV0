@@ -59,9 +59,9 @@ public class DocumentController {
 	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<Document> generaDocumento(@RequestBody DocumentRequest request) throws Exception{
 		
-		Document docDto = docService.generaPdf("prova");
+		Document docDto = docService.generaDocAnagrafica(request);
 		HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.APPLICATION_PDF);
+	    //headers.setContentType(MediaType.APPLICATION_PDF);
 		ResponseEntity<Document> oResponse = new ResponseEntity<>(docDto, headers, HttpStatus.OK);
 		return oResponse;
 	}

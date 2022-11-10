@@ -2,12 +2,14 @@ package com.docv0.document.fragment;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -18,7 +20,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 @Component
-public class GeneratoreDocumentiFirma {
+public class GeneratoreDocumentiFirma implements Serializable{
 
 	
 	// servizio per generare pdf di firma
@@ -27,6 +29,7 @@ public class GeneratoreDocumentiFirma {
 		Document document = new Document();
 		// prendo in input come si chiama sto file
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		
 		PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/generatedoc/"+nomePdf+".pdf"));
 		//PdfWriter.getInstance(document, new FileOutputStream("C:/tmp/"+nomePdf+".pdf"));
 		document.open();
