@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -22,7 +20,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 @Component
 public class GeneratoreDocumentiFirma implements Serializable{
 
-	
 	// servizio per generare pdf di firma
 	public Document generaPdf(String nomePdf,String nome, String cognome, String cf, String firma) throws FileNotFoundException, DocumentException {
 

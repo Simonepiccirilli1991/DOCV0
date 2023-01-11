@@ -32,14 +32,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 @Component
 public class DocumentFragment {
-
-	
-	// genera documento
-	public Document generaDocumenti(String nomeFile) throws Exception {
-
-		
-		return generaPdf(nomeFile);   
-	}
 	
 	// legge pdf e lo ritorna
 	public byte[] leggiDocumento() throws IOException {
@@ -57,50 +49,6 @@ public class DocumentFragment {
 		InputStream resp =  new ByteArrayInputStream(contents);
 		
 		return resp;
-	}
-	
-	// metodo che genera
-	private Document generaPdf(String nomePdf) throws FileNotFoundException, DocumentException {
-		
-		Document document = new Document();
-		// prendo in input come si chiama sto file
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		PdfWriter.getInstance(document, new FileOutputStream("C:/tmp/"+nomePdf+".pdf"));
-		//PdfWriter.getInstance(document, new FileOutputStream("C:/tmp/"+nomePdf+".pdf"));
-		document.open();
-		document.add(new Paragraph("Documenti utente :"));
-		document.add(new Paragraph(new Date().toString()));
-		PdfPTable table=new PdfPTable(2);
-
-		PdfPCell cell = new PdfPCell (new Paragraph ("Dati Utente"));
-
-		cell.setColspan (2);
-		cell.setHorizontalAlignment (Element.ALIGN_CENTER);
-		cell.setPadding (10.0f);
-		cell.setBackgroundColor (new BaseColor (140, 221, 8));                                  
-
-		table.addCell(cell);                                    
-		ArrayList<String[]> row=new ArrayList<String[]>();
-		String[] data=new String[2];
-		data[0]="1";
-		data[1]="2";
-		String[] data1=new String[2];
-		data1[0]="3";
-		data1[1]="4";
-		row.add(data);
-		row.add(data1);
-
-		for(int i=0;i<row.size();i++) {
-			String[] cols=row.get(i);
-			for(int j=0;j<cols.length;j++){
-				table.addCell(cols[j]);
-			}
-		}
-
-		document.add(table);
-		document.close();
-
-		return document;   
 	}
 	
 	
