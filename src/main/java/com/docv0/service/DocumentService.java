@@ -31,15 +31,12 @@ public class DocumentService {
 	
 	public Document generaPdf(String nomeFile) throws Exception {
 		//TODO cambiare oggetto con anagrafica
-		Document response = generaDoc.generaPdf(nomeFile, nomeFile, nomeFile, nomeFile, nomeFile);
-		return response;
+		return generaDoc.generaPdf(nomeFile, nomeFile, nomeFile, nomeFile, nomeFile);
 	}
 	
 	
 	public byte[] leggiPdf(String nomePdf) throws IOException {
-		
-		byte[] response = docFragment.leggiDocumento();
-		
-		return response;
+
+		return docFragment.leggiDocumento();
 	}
 }
