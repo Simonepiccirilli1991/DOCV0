@@ -25,10 +25,7 @@ public class GeneratoreDocumentiFirma implements Serializable{
 
 		Document document = new Document();
 		// prendo in input come si chiama sto file
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		
 		PdfWriter.getInstance(document, new FileOutputStream("src/main/resources/generatedoc/"+nomePdf+".pdf"));
-		//PdfWriter.getInstance(document, new FileOutputStream("C:/tmp/"+nomePdf+".pdf"));
 		document.open();
 		document.add(new Paragraph("Documenti utente :"));
 		document.add(new Paragraph(new Date().toString()));
@@ -42,7 +39,7 @@ public class GeneratoreDocumentiFirma implements Serializable{
 		cell.setBackgroundColor (new BaseColor (140, 221, 8));                                  
 
 		table.addCell(cell);                                    
-		ArrayList<String[]> row=new ArrayList<String[]>();
+		ArrayList<String[]> row= new ArrayList<>();
 		String[] data=new String[2];
 		data[0]=nome;
 		data[1]=cognome;
@@ -52,10 +49,9 @@ public class GeneratoreDocumentiFirma implements Serializable{
 		row.add(data);
 		row.add(data1);
 
-		for(int i=0;i<row.size();i++) {
-			String[] cols=row.get(i);
-			for(int j=0;j<cols.length;j++){
-				table.addCell(cols[j]);
+		for (String[] cols : row) {
+			for (String col : cols) {
+				table.addCell(col);
 			}
 		}
 
